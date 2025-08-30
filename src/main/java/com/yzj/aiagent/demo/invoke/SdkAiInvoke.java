@@ -14,7 +14,7 @@ import com.alibaba.dashscope.exception.NoApiKeyException;
 import com.alibaba.dashscope.utils.JsonUtils;
 
 /**
- * SDK接入方式
+ * 1、SDK接入方式
  */
 public class SdkAiInvoke {
 

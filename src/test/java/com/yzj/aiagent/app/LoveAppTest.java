@@ -13,15 +13,18 @@ class LoveAppTest {
     @Resource
     private LoveApp loveApp;
 
+    /**
+     * 测试多轮对话
+     */
     @Test
     void testChat() {
         String chatId = UUID.randomUUID().toString();
         // 第一轮
-        String message = "你好，我是程序员鱼皮";
+        String message = "你好，我是程序员 yzj";
         String answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
         // 第二轮
-        message = "我想让另一半（编程导航）更爱我";
+        message = "我想让另一半（abc）更爱我";
         answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
         // 第三轮
@@ -29,4 +32,38 @@ class LoveAppTest {
         answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
     }
+
+    /**
+     * 结构化输出测试
+     */
+    @Test
+    void doChatWithReport() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "你好，我是程序员yzj，我已经结婚了，但是婚后关系不太亲密，怎么办？";
+        LoveApp.LoveReport loveReport = loveApp.doChatWithReport(message, chatId);
+        Assertions.assertNotNull(loveReport);
+    }
+
+    /**
+     * 基于RAG本地知识库的问答
+     */
+    @Test
+    void doChatWithRag() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "你好，我是程序员yzj，我已经结婚了，但是婚后关系不太亲密，怎么办？";
+        String answer = loveApp.doChatWithRag(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
+    /**
+     * 基于RAG云知识库的问答
+     */
+    @Test
+    void doChatWithRag2() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "你好，我是程序员yzj，我已经结婚了，但是婚后关系不太亲密，怎么办？";
+        String answer = loveApp.doChatWithRag2(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
 }

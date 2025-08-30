@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * HTTP接入方式
+ * 2、HTTP接入方式
+ * 一般来说，如果有官方 SDK 支持，优先使用 SDK；只有在不支持 SDK 的情况下，再考虑直接 HTTP调用
  */
 public class HttpAiInvoke {
     public static void main(String[] args) {

@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * Spring AI接入方式
+ * 3、Spring AI接入方式
  */
 // 取消注释即可在 SpringBoot 项目启动时执行
 @Component

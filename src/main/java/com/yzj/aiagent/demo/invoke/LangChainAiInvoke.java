@@ -4,7 +4,7 @@
 //import dev.langchain4j.model.chat.ChatLanguageModel;
 //
 ///**
-// * LangChain4j接入方式
+// * 4、LangChain4j接入方式
 // */
 //public class LangChainAiInvoke {
 //
