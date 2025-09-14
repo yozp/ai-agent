@@ -37,12 +37,15 @@ public class LoveAppDocumentLoader {
             Resource[] resources = resourcePatternResolver.getResources("classpath:document/*.md");
             for (Resource resource : resources) {
                 String filename = resource.getFilename();
+//                // 提取文档倒数第 3 和第 2 个字作为标签（太生硬，不推荐）
+//                String status = filename.substring(filename.length() - 6, filename.length() - 4);
                 // 配置Markdown文档读取器
                 MarkdownDocumentReaderConfig config = MarkdownDocumentReaderConfig.builder()//创建一个配置建造器
                         .withHorizontalRuleCreateDocument(true)//按章节分割成多个小文档，如遇到 (--- 或 ***)
                         .withIncludeCodeBlock(false)//设置解析时不包含代码块（``` 中的内容）
                         .withIncludeBlockquote(false)//设置解析时不包含引用块 (> 开头的内容）
                         .withAdditionalMetadata("filename", filename)//向生成的每个 Document 对象中添加一个额外的元数据键值对，键是 "filename"
+//                        .withAdditionalMetadata("status", status)//为每篇文章添加特定标签，例如"状态"
                         .build();//生成一个 MarkdownDocumentReaderConfig 配置对象
                 // 创建Markdown文档读取器实例
                 MarkdownDocumentReader reader = new MarkdownDocumentReader(resource, config);

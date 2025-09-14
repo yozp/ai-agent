@@ -3,6 +3,8 @@ package com.yzj.aiagent.app;
 import com.yzj.aiagent.advisor.MyLoggerAdvisor;
 import com.yzj.aiagent.advisor.ReReadingAdvisor;
 import com.yzj.aiagent.chatmemory.FileBasedChatMemory;
+import com.yzj.aiagent.rag.LoveAppRagCustomAdvisorFactory;
+import com.yzj.aiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -14,6 +16,7 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,6 +33,12 @@ public class LoveApp {
 
     @Resource
     private Advisor loveAppRagCloudAdvisor;
+
+    @Resource
+    private VectorStore pgVectorVectorStore;
+
+    @Resource
+    private QueryRewriter queryRewriter;
 
     private final ChatClient chatClient;
 
@@ -99,15 +108,24 @@ public class LoveApp {
      * 基于RAG本地知识库的多轮对话
      */
     public String doChatWithRag(String message, String chatId) {
+        //查询重写
+        String rewrittenMessage = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
                 .prompt()
-                .user(message)
-                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
-                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .user(rewrittenMessage)//添加用户提示词（问题）
+                .advisors(spec -> spec
+                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)// 对话ID
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10)// 检索的历史消息数量
+                )//配置对话记忆顾问
 //                .advisors(new MyLoggerAdvisor()) // 开启日志，便于观察效果
-                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))// 应用知识库问答
+//                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))// 1.应用本地知识库问答
+//                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))// 2.应用 RAG 检索增强服务（基于 PgVector 向量存储）
+                .advisors(LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+                        loveAppVectorStore, "单身")
+                )// 3.应用自定义的 RAG 检索增强服务
                 .call()
                 .chatResponse();
+        chatClient.prompt().call().content();
         String content = chatResponse.getResult().getOutput().getText();
 //        //这里因为有了自定义日志 Advisor，可以不输出
 //        log.info("content: {}", content);

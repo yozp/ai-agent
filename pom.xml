@@ -113,6 +113,33 @@
         <!--            <artifactId>spring-ai-advisors-vector-store</artifactId>-->
         <!--        </dependency>-->
 
+<!--        &lt;!&ndash; 为Spring AI应用提供与PostgreSQL pgvector扩展集成的向量存储功能（自动整合） &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.ai</groupId>-->
+<!--            <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>-->
+<!--            <version>1.0.0-M7</version>-->
+<!--        </dependency>-->
+
+        <!-- 提供基本的JDBC核心功能，用于数据库连接和基础操作 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!-- PostgreSQL数据库驱动程序，运行时所需 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Spring AI对PostgreSQL pgvector向量存储的集成支持 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pgvector-store</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>
+
     </dependencies>
 
     <!-- 项目构建配置 -->

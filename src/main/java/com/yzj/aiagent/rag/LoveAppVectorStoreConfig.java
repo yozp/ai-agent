@@ -21,6 +21,12 @@ public class LoveAppVectorStoreConfig {
     @Resource
     private LoveAppDocumentLoader loveAppDocumentLoader;
 
+    @Resource
+    private MyTokenTextSplitter myTokenTextSplitter;
+
+    @Resource
+    private MyKeywordEnricher myKeywordEnricher;
+
     /**
      * 创建并配置向量存储Bean
      * @param dashscopeEmbeddingModel 嵌入模型，用于将文本转换为向量表示
@@ -33,9 +39,12 @@ public class LoveAppVectorStoreConfig {
                 .build();
         // 使用文档加载器加载所有Markdown文档
         List<Document> documents = loveAppDocumentLoader.loadMarkdowns();
-        // 将加载的文档添加到向量存储中
-        // 文档会被自动转换为向量并建立索引
-        simpleVectorStore.add(documents);
+//        //自主切分（不推荐）
+//        List<Document> splitDocuments  = myTokenTextSplitter.splitCustomized(documents);
+        // 自动补充关键词元信息（可选）
+        List<Document> enrichedDocuments = myKeywordEnricher.enrichDocuments(documents);
+        // 将加载的文档添加到向量存储中，文档会被自动转换为向量并建立索引
+        simpleVectorStore.add(enrichedDocuments);
         // 返回配置好的向量存储实例
         return simpleVectorStore;
     }

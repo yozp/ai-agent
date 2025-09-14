@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * 3、Spring AI接入方式
  */
 // 取消注释即可在 SpringBoot 项目启动时执行
-@Component
+//@Component
 public class SpringAiAiInvoke implements CommandLineRunner {
 
     @Resource
@@ -19,7 +19,7 @@ public class SpringAiAiInvoke implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        AssistantMessage output = dashscopeChatModel.call(new Prompt("你好，我是鱼皮"))
+        AssistantMessage output = dashscopeChatModel.call(new Prompt("你好，我是yzj"))
                 .getResult()
                 .getOutput();
         System.out.println(output.getText());
