@@ -113,6 +113,8 @@
         <!--            <artifactId>spring-ai-advisors-vector-store</artifactId>-->
         <!--        </dependency>-->
 
+        <!--======================================================================================================-->
+
 <!--        &lt;!&ndash; 为Spring AI应用提供与PostgreSQL pgvector扩展集成的向量存储功能（自动整合） &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.ai</groupId>-->
@@ -120,6 +122,7 @@
 <!--            <version>1.0.0-M7</version>-->
 <!--        </dependency>-->
 
+        <!--手动整合-->
         <!-- 提供基本的JDBC核心功能，用于数据库连接和基础操作 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -138,6 +141,33 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-pgvector-store</artifactId>
             <version>1.0.0-M6</version>
+        </dependency>
+
+        <!--======================================================================================================-->
+
+        <!-- HTML解析器，用于网页抓取和数据提取 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.19.1</version>
+        </dependency>
+
+        <!-- iText核心库，提供PDF文档创建和处理的基础功能 -->
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-core -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext-core</artifactId>
+            <version>9.1.0</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- 亚洲字体支持包，包含中日韩等亚洲语言的字体资源 -->
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/font-asian -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>font-asian</artifactId>
+            <version>9.1.0</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

@@ -15,6 +15,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,9 @@ public class LoveApp {
 
     @Resource
     private QueryRewriter queryRewriter;
+
+    @Resource
+    private ToolCallback[] allTools;
 
     private final ChatClient chatClient;
 
@@ -149,6 +153,24 @@ public class LoveApp {
 //        //这里因为有了自定义日志 Advisor，可以不输出
 //        log.info("content: {}", content);
         return content;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * AI 恋爱报告功能（支持调用工具）
+     */
+    public String doChatWithTools(String message,String chatId){
+        ChatResponse response = chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .tools(allTools)
+                .call()
+                .chatResponse();
+        String context = response.getResult().getOutput().getText();
+        return context;
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
