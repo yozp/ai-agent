@@ -170,6 +170,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring AI MCP客户端启动器，用于集成AI模型控制协议(MCP) -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-mcp-client-spring-boot-starter</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>
+
     </dependencies>
 
     <!-- 项目构建配置 -->

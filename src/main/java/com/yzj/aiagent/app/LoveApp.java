@@ -16,6 +16,7 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,9 @@ public class LoveApp {
 
     @Resource
     private ToolCallback[] allTools;
+
+    @Resource
+    private ToolCallbackProvider toolCallbackProvider;
 
     private final ChatClient chatClient;
 
@@ -158,7 +162,7 @@ public class LoveApp {
     //--------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * AI 恋爱报告功能（支持调用工具）
+     * AI 调用工具服务
      */
     public String doChatWithTools(String message,String chatId){
         ChatResponse response = chatClient
@@ -167,6 +171,22 @@ public class LoveApp {
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 .tools(allTools)
+                .call()
+                .chatResponse();
+        String context = response.getResult().getOutput().getText();
+        return context;
+    }
+
+    /**
+     * AI 调用 MCP服务
+     */
+    public String doChatWithMcp(String message,String chatId){
+        ChatResponse response = chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .tools(toolCallbackProvider)
                 .call()
                 .chatResponse();
         String context = response.getResult().getOutput().getText();
