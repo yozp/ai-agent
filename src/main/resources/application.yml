@@ -2,22 +2,22 @@
 spring:
   application:
     name: ai-agent
-  datasource:
-    url: xxx
-    username: xxx
-    password: xxx
+#  datasource:
+#    url: xxx
+#    username: xxx
+#    password: xxx
   ai:
     dashscope:
       api-key: xxx
       chat:
         options:
           model: qwen-plus
-    vectorstore:
-      pgvector:
-        index-type: HNSW
-        dimensions: 1536
-        distance-type: COSINE_DISTANCE
-        max-document-batch-size: 10000 # 可选：每批的最大文档数量
+#    vectorstore:
+#      pgvector:
+#        index-type: HNSW
+#        dimensions: 1536
+#        distance-type: COSINE_DISTANCE
+#        max-document-batch-size: 10000 # 可选：每批的最大文档数量
     mcp:
       client:
 #        sse:
