@@ -20,11 +20,11 @@ public class TerminalOperationTool {
         StringBuilder output = new StringBuilder(); // 用于存储命令输出结果
         try {
 
-//            // 1.windows操作系统执行终端命令
-//            ProcessBuilder builder = new ProcessBuilder("cmd.exe  ", "/c", command);
-//            Process process = builder.start();
-            // 2.非windows操作系统执行终端命令
-            Process process = Runtime.getRuntime().exec(command);
+            // 1.windows操作系统执行终端命令
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe  ", "/c", command);
+            Process process = builder.start();
+//            // 2.非windows操作系统执行终端命令
+//            Process process = Runtime.getRuntime().exec(command);
 
             // 读取命令的标准输出流
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

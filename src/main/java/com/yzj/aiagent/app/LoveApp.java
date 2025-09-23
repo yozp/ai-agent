@@ -47,8 +47,8 @@ public class LoveApp {
     private ToolCallback[] allTools;
 
     //mcp相关，为了部署上线，可以暂停掉
-//    @Resource
-//    private ToolCallbackProvider toolCallbackProvider;
+    @Resource
+    private ToolCallbackProvider toolCallbackProvider;
 
     private final ChatClient chatClient;
 
@@ -204,7 +204,7 @@ public class LoveApp {
                 .user(message)
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
-//                .tools(toolCallbackProvider)
+                .tools(toolCallbackProvider)
                 .call()
                 .chatResponse();
         String context = response.getResult().getOutput().getText();
