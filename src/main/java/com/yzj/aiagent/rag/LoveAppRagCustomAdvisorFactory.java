@@ -34,7 +34,7 @@ public class LoveAppRagCustomAdvisorFactory {
         // VectorStoreDocumentRetriever是DocumentRetriever的一个实现类
         DocumentRetriever documentRetriever = VectorStoreDocumentRetriever.builder()
                 .vectorStore(vectorStore) // 设置向量存储源
-                .filterExpression(expression) // 设置过滤条件：按状态过滤文档
+//                .filterExpression(expression) // 设置过滤条件：按状态过滤文档
                 .similarityThreshold(0.5) // 设置相似度阈值：只返回相似度大于0.5的文档（0-1范围）
                 .topK(3) // 设置返回文档数量：最多返回3个最相关的文档
                 .build(); // 构建DocumentRetriever实例

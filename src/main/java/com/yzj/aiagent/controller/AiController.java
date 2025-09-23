@@ -15,6 +15,7 @@ import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 
+//http://localhost:8124/api/doc.html#/home
 @RestController
 @RequestMapping("/ai")
 public class AiController {

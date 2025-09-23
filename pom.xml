@@ -203,6 +203,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>com.yzj.aiagent.AiAgentApplication</mainClass>
+<!--                    <skip>true</skip>-->
                     <!-- 排除不需要打包的依赖 -->
                     <excludes>
                         <exclude>

@@ -46,8 +46,9 @@ public class LoveApp {
     @Resource
     private ToolCallback[] allTools;
 
-    @Resource
-    private ToolCallbackProvider toolCallbackProvider;
+    //mcp相关，为了部署上线，可以暂停掉
+//    @Resource
+//    private ToolCallbackProvider toolCallbackProvider;
 
     private final ChatClient chatClient;
 
@@ -87,6 +88,9 @@ public class LoveApp {
                 .user(message)
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .advisors(LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+                        loveAppVectorStore, "xxx")
+                )// 应用自定义的 RAG 检索增强服务
                 .call()
                 .chatResponse();
         String content = response.getResult().getOutput().getText();
@@ -200,7 +204,7 @@ public class LoveApp {
                 .user(message)
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
-                .tools(toolCallbackProvider)
+//                .tools(toolCallbackProvider)
                 .call()
                 .chatResponse();
         String context = response.getResult().getOutput().getText();

@@ -2,30 +2,31 @@
 spring:
   application:
     name: ai-agent
-#  datasource:
-#    url: xxx
-#    username: xxx
-#    password: xxx
+  datasource:
+    url: xxx
+    username: xxx
+    password: xxx
   ai:
     dashscope:
       api-key: xxx
       chat:
         options:
           model: qwen-plus
-#    vectorstore:
-#      pgvector:
-#        index-type: HNSW
-#        dimensions: 1536
-#        distance-type: COSINE_DISTANCE
-#        max-document-batch-size: 10000 # 可选：每批的最大文档数量
-    mcp:
-      client:
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        dimensions: 1536
+        distance-type: COSINE_DISTANCE
+        max-document-batch-size: 10000 # 可选：每批的最大文档数量
+    #为了部署上线，mcp这一块可以完全注释掉
+#    mcp:
+#      client:
 #        sse:
 #          connections:
 #            server1:
 #              url: http://localhost:8127
-        stdio:
-          servers-configuration: classpath:mcp-servers.json
+#        stdio:
+#          servers-configuration: classpath:mcp-servers.json
 
 server:
   port: 8124

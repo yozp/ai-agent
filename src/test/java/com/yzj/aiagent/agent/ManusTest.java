@@ -15,9 +15,9 @@ class ManusTest {
     @Test
     void run() {  
         String userPrompt = """  
-                我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点，  
-                并结合一些网络图片，制定一份详细的约会计划，  
-                并以 PDF 格式输出""";  
+                你好，我叫yunikon，我现在在广州大学城，
+                请帮我找到不超过三个的 5 公里内合适的约会地点，
+                并且制定一份详细的约会计划，并将计划的内容以 PDF 格式输出""";
         String answer = Manus.run(userPrompt);
         Assertions.assertNotNull(answer);
     }  
